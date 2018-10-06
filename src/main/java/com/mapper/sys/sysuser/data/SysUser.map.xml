@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mapper.sys.sysuser.data.SysUser">
+	<resultMap id="SysUser" type="com.mapper.sys.sysuser.data.SysUser">
+		<id property="userid" column="userid" jdbcType="NUMERIC"/>
+		<result property="fullname" column="fullname" jdbcType="VARCHAR"/>
+		<result property="account" column="account" jdbcType="VARCHAR"/>
+		<result property="password" column="password" jdbcType="VARCHAR"/>
+		<result property="isexpired" column="isexpired" jdbcType="NUMERIC"/>
+		<result property="islock" column="islock" jdbcType="NUMERIC"/>
+		<result property="createtime" column="createtime" jdbcType="DATE"/>
+		<result property="status" column="status" jdbcType="NUMERIC"/>
+		<result property="email" column="email" jdbcType="VARCHAR"/>
+		<result property="phone" column="phone" jdbcType="VARCHAR"/>
+		<result property="sex" column="sex" jdbcType="VARCHAR"/>
+		<result property="picture" column="picture" jdbcType="VARCHAR"/>
+		<result property="createuser" column="createuser" jdbcType="VARCHAR"/>
+		<result property="updatetime" column="updatetime" jdbcType="DATE"/>
+		<result property="updateby" column="updateby" jdbcType="NUMERIC"/>
+		<result property="updateuser" column="updateuser" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="columns">
+		sys_user.userid,sys_user.fullname,sys_user.account,sys_user.password,sys_user.isexpired,sys_user.islock,sys_user.createtime,sys_user.status,sys_user.email,sys_user.phone,sys_user.sex,sys_user.picture,sys_user.createuser,sys_user.updatetime,sys_user.updateby,sys_user.updateuser
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(userid)"> AND sys_user.userid  =#{userid} </if>
+			<if test="@Ognl@isNotEmpty(fullname)"> AND sys_user.fullname  LIKE '%${fullname}%'  </if>
+			<if test="@Ognl@isNotEmpty(account)"> AND sys_user.account  LIKE '%${account}%'  </if>
+			<if test="@Ognl@isNotEmpty(password)"> AND sys_user.password  LIKE '%${password}%'  </if>
+			<if test="@Ognl@isNotEmpty(isexpired)"> AND sys_user.isexpired  =#{isexpired} </if>
+			<if test="@Ognl@isNotEmpty(islock)"> AND sys_user.islock  =#{islock} </if>
+			<if test="@Ognl@isNotEmpty(createtime)"> AND sys_user.createtime  =#{createtime} </if>
+			<if test="@Ognl@isNotEmpty(begincreatetime)"> AND sys_user.createtime  >=#{begincreatetime,jdbcType=DATE} </if>
+			<if test="@Ognl@isNotEmpty(endcreatetime)"> AND sys_user.createtime <![CDATA[ <=#{endcreatetime,jdbcType=DATE}]]> </if>
+			<if test="@Ognl@isNotEmpty(status)"> AND sys_user.status  =#{status} </if>
+			<if test="@Ognl@isNotEmpty(email)"> AND sys_user.email  LIKE '%${email}%'  </if>
+			<if test="@Ognl@isNotEmpty(phone)"> AND sys_user.phone  LIKE '%${phone}%'  </if>
+			<if test="@Ognl@isNotEmpty(sex)"> AND sys_user.sex  LIKE '%${sex}%'  </if>
+			<if test="@Ognl@isNotEmpty(picture)"> AND sys_user.picture  LIKE '%${picture}%'  </if>
+			<if test="@Ognl@isNotEmpty(createuser)"> AND sys_user.createuser  LIKE '%${createuser}%'  </if>
+			<if test="@Ognl@isNotEmpty(updatetime)"> AND sys_user.updatetime  =#{updatetime} </if>
+			<if test="@Ognl@isNotEmpty(beginupdatetime)"> AND sys_user.updatetime  >=#{beginupdatetime,jdbcType=DATE} </if>
+			<if test="@Ognl@isNotEmpty(endupdatetime)"> AND sys_user.updatetime <![CDATA[ <=#{endupdatetime,jdbcType=DATE}]]> </if>
+			<if test="@Ognl@isNotEmpty(updateby)"> AND sys_user.updateby  =#{updateby} </if>
+			<if test="@Ognl@isNotEmpty(updateuser)"> AND sys_user.updateuser  LIKE '%${updateuser}%'  </if>
+			
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.mapper.sys.sysuser.data.SysUser">
+		INSERT INTO sys_user
+		(userid,fullname,account,password,isexpired,islock,createtime,status,email,phone,sex,picture,createuser,updatetime,updateby,updateuser)
+		VALUES
+		(#{userid,jdbcType=NUMERIC}, #{fullname,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{isexpired,jdbcType=NUMERIC}, #{islock,jdbcType=NUMERIC}, #{createtime,jdbcType=DATE}, #{status,jdbcType=NUMERIC}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{createuser,jdbcType=VARCHAR}, #{updatetime,jdbcType=DATE}, #{updateby,jdbcType=NUMERIC}, #{updateuser,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM sys_user 
+		WHERE
+		userid=#{userid}
+	</delete>
+	
+	<update id="update" parameterType="com.mapper.sys.sysuser.data.SysUser">
+		UPDATE sys_user SET
+		<if test="@Ognl@isNotEmpty(userid)"> sys_user.userid  =#{userid} </if>
+		<if test="@Ognl@isNotEmpty(fullname)">
+			,sys_user.fullname=#{fullname,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(account)">
+			,sys_user.account=#{account,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(password)">
+			,sys_user.password=#{password,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(isexpired)">
+			,sys_user.isexpired=#{isexpired,jdbcType=NUMERIC}
+		</if>
+		<if test="@Ognl@isNotEmpty(islock)">
+			,sys_user.islock=#{islock,jdbcType=NUMERIC}
+		</if>
+		<if test="@Ognl@isNotEmpty(createtime)">
+			,sys_user.createtime=#{createtime,jdbcType=DATE}
+		</if>
+		<if test="@Ognl@isNotEmpty(status)">
+			,sys_user.status=#{status,jdbcType=NUMERIC}
+		</if>
+		<if test="@Ognl@isNotEmpty(email)">
+			,sys_user.email=#{email,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(phone)">
+			,sys_user.phone=#{phone,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(sex)">
+			,sys_user.sex=#{sex,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(picture)">
+			,sys_user.picture=#{picture,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(createuser)">
+			,sys_user.createuser=#{createuser,jdbcType=VARCHAR}
+		</if>
+		<if test="@Ognl@isNotEmpty(updatetime)">
+			,sys_user.updatetime=#{updatetime,jdbcType=DATE}
+		</if>
+		<if test="@Ognl@isNotEmpty(updateby)">
+			,sys_user.updateby=#{updateby,jdbcType=NUMERIC}
+		</if>
+		<if test="@Ognl@isNotEmpty(updateuser)">
+			,sys_user.updateuser=#{updateuser,jdbcType=VARCHAR}
+		</if>
+		WHERE
+		userid=#{userid}
+	</update>
+		    
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysUser">
+		SELECT <include refid="columns"/>
+		FROM sys_user
+		WHERE
+		userid=#{userid}
+	</select>
+	
+	<select id="getAll" resultMap="SysUser">
+		SELECT <include refid="columns"/>
+		FROM sys_user   
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>

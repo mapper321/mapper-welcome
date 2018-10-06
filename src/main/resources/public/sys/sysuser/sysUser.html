@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<th:block th:include="onload_js :: head"></th:block>
+</head>
+<script>
+var gridArea = {
+	    xtype: 'gridArea',
+	    url:'/sys/sysuser/list.ht',
+		del:'/sys/sysuser/del.ht',
+	    search: {
+	        fields: [
+				 	{ label: 'fullname', name: 'fullname', xtype: 'textbox'},
+				 	{ label: 'account', name: 'account', xtype: 'textbox'},
+				 	{ label: 'password', name: 'password', xtype: 'textbox'},
+				 	{ label: 'isexpired', name: 'isexpired', xtype: 'textbox'},
+				 	{ label: 'islock', name: 'islock', xtype: 'textbox'},
+				 	{ label: 'status', name: 'status', xtype: 'textbox'},
+				 	{ label: 'email', name: 'email', xtype: 'textbox'},
+				 	{ label: 'phone', name: 'phone', xtype: 'textbox'},
+				 	{ label: 'sex', name: 'sex', xtype: 'textbox'},
+				 	{ label: 'picture', name: 'picture', xtype: 'textbox'},
+				 	{ label: 'updateby', name: 'updateby', xtype: 'textbox'},
+	        ]
+	    },
+	    columns: [[
+	        { field: 'userid', checkbox: true },
+	        
+			 	{ field: 'fullname', title: 'fullname', width: 100 },
+			 	{ field: 'account', title: 'account', width: 100 },
+			 	{ field: 'password', title: 'password', width: 100 },
+			 	{ field: 'isexpired', title: 'isexpired', width: 100 },
+			 	{ field: 'islock', title: 'islock', width: 100 },
+			 { field: 'createtime', title: 'createtime', width: 100 ,formatter:DateUtil.formatDate},
+			 	{ field: 'status', title: 'status', width: 100 },
+			 	{ field: 'email', title: 'email', width: 100 },
+			 	{ field: 'phone', title: 'phone', width: 100 },
+			 	{ field: 'sex', title: 'sex', width: 100 },
+			 	{ field: 'picture', title: 'picture', width: 100 },
+			 	{ field: 'createuser', title: 'createuser', width: 100 },
+			 { field: 'updatetime', title: 'updatetime', width: 100 ,formatter:DateUtil.formatDate},
+			 	{ field: 'updateby', title: 'updateby', width: 100 },
+			 	{ field: 'updateuser', title: 'updateuser', width: 100 },
+	    ]],
+	    buttons:[
+			{text: '新增',iconCls: 'icon-add',onClick: function (e) { 
+				page2.showView();
+				formArea.edit();
+			}}, 
+			{text: '修改',iconCls: 'icon-edit',onClick: function () {
+	     		var rowData = gridArea.datagrid('getSelected');
+	     		if (!rowData){
+	         		$.alert.info('请选中一条记录');
+	         		return;
+	     		}
+	     		page2.showView();
+	     		formArea.edit().loadData({userid:rowData.userid});
+	     	}}, 
+	     	'-', 
+	     	{text: '删除',iconCls: 'icon-remove', onClick: function () {
+	     		gridArea.delData('userid',function(){
+	     			gridArea.loadData();
+	     		});
+	     	}}
+	    ],
+	    onDblClickRow : function (rowIndex, rowData) {
+	    	page2.showView();
+	    	formArea.view().loadData({userid:rowData.userid});
+		}
+	}
+
+	var formArea = {
+	        xtype: "formArea",
+	        get:'/sys/sysuser/get.ht',
+	    	save:'/sys/sysuser/save.ht',
+	        //height: 117,
+	        title: "基础信息",
+	        fields: [
+				{ label: "", xtype: "hiddenbox", name: "userid"},
+				{ label: "fullname", xtype: "textbox", name: "fullname"},
+				{ label: "account", xtype: "textbox", name: "account"},
+				{ label: "password", xtype: "textbox", name: "password"},
+				{ label: "isexpired", xtype: "textbox", name: "isexpired"},
+				{ label: "islock", xtype: "textbox", name: "islock"},
+				{ label: "status", xtype: "textbox", name: "status"},
+				{ label: "email", xtype: "textbox", name: "email"},
+				{ label: "phone", xtype: "textbox", name: "phone"},
+				{ label: "sex", xtype: "textbox", name: "sex"},
+				{ label: "picture", xtype: "textbox", name: "picture"},
+				{ label: "updateby", xtype: "textbox", name: "updateby"},
+	        ],
+	        buttons: [
+	        	{ text: "编辑", iconCls: "icon-edit", onClick: function () {
+					formArea.edit();
+				}},
+				{ text: "保存", iconCls: "icon-save", onClick: function () {
+					formArea.submit(function(){
+						formArea.view();
+					});
+				}},
+	        	{ text: "返回", iconCls: "icon-back",onClick: function () {
+	        		page1.showView(); 
+	        		gridArea.loadData();
+	        	}
+	        }]
+	    }
+var page1 = {
+	    xtype: 'viewArea',
+	    region: {
+	        center: gridArea
+	    }
+	}
+var page2 = {
+	    xtype: 'viewArea',
+	    region: {
+	    	center: formArea
+	    }
+	}
+var viewport = {
+		xtype: "viewport",
+		items: [page1, page2]
+}
+$(function () {
+	$.appInit(viewport);
+})
+</script>
+<body>
+</body>
+</html>
