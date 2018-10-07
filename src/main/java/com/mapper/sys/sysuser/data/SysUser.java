@@ -3,6 +3,14 @@ package com.mapper.sys.sysuser.data;
 import com.mapper.core.model.BaseModel;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 /**
  * 对象功能:sys_user Model对象
@@ -10,7 +18,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * 开发人员:mapper
  * 创建时间:2018-10-02 10:09:23
  */
-public class SysUser extends BaseModel
+public class SysUser extends BaseModel implements UserDetails
 {
 	private static final long serialVersionUID = 1L;
 	// userid
@@ -407,6 +415,37 @@ public class SysUser extends BaseModel
 		.append("updateby", this.updateby) 
 		.append("updateuser", this.updateuser) 
 		.toString();
+	}
+	
+	//spring security 用户接口需要实现的方法
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		GrantedAuthority ga = new SimpleGrantedAuthority("ADMIN");
+		List gaList = new ArrayList<GrantedAuthority>();
+		//gaList.add(ga);
+		return gaList;
+	}
+	@Override
+	public String getUsername() {
+		return getAccount();
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return 0==isexpired;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return 0==islock;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
    
   

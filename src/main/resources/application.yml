@@ -3,6 +3,15 @@ server:
 spring:
   application:
     name: welcome
+  thymeleaf: 
+    cache: false
+    check-template-location: true  
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/public/
+    suffix: .html   
   cloud:
     zookeeper:
       connect-string: 140.143.35.107:2181
@@ -32,6 +41,7 @@ spring:
 mybatis:
   mapper-locations: classpath*:com/mapper/*/*/data/*.map.xml 
   typeAliasesPackage: com.mapper.*.*.data
-logging:
-  file: welcome.log 
-  
+#logging:
+#  level:
+#    root: debug
+#  file: welcome.log 

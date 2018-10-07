@@ -11,15 +11,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableTransactionManagement
-@RestController
+@Controller
 public class Welcome {
 	
 	@Value("${spring.application.name}")
@@ -29,6 +31,7 @@ public class Welcome {
 	private DiscoveryClient discoveryClient;
 	
 	@RequestMapping("/getserverurl")
+	@ResponseBody()
 	public String serviceUrl() {
 	    List<ServiceInstance> list = discoveryClient.getInstances(instanceName);
 	    if (list != null && list.size() > 0 ) {
@@ -38,9 +41,16 @@ public class Welcome {
 	}
 	
 	@RequestMapping("/")
+	@ResponseBody()
     public String home() {
         return "Hello world";
     }
+	
+	@RequestMapping("/loginPage")
+	public String loginpage() {
+		return "index";
+	}
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Welcome.class,args);
