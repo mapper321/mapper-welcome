@@ -1,6 +1,10 @@
 package com.mapper.sys.sysuser.data;
 
 import com.mapper.core.model.BaseModel;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,45 +26,66 @@ public class SysUser extends BaseModel implements UserDetails
 {
 	private static final long serialVersionUID = 1L;
 	// userid
+	@ApiModelProperty(value = "用户id",required=false)
 	protected Long  userid;
 	// fullname
+	@ApiModelProperty(value="用户昵称",required=false)
 	protected String  fullname;
 	// account
+	@ApiModelProperty(value="账户名",required=true)
 	protected String  account;
 	// password
+	@ApiModelProperty(hidden=true)
 	protected String  password;
 	// isexpired
+	@ApiModelProperty(hidden=true)
 	protected Long  isexpired;
 	// islock
+	@ApiModelProperty(hidden=true)
 	protected Long  islock;
 	// createtime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  createtime;
 	//开始 createtime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  begincreatetime;
 	//结束 createtime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  endcreatetime;	
 	// status
+	@ApiModelProperty(hidden=true)
 	protected Long  status;
 	// email
+	@ApiModelProperty(hidden=true)
 	protected String  email;
 	// phone
+	@ApiModelProperty(hidden=true)
 	protected String  phone;
 	// sex
+	@ApiModelProperty(hidden=true)
 	protected String  sex;
 	// picture
+	@ApiModelProperty(hidden=true)
 	protected String  picture;
 	// createuser
+	@ApiModelProperty(hidden=true)
 	protected String  createuser;
 	// updatetime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  updatetime;
 	//开始 updatetime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  beginupdatetime;
 	//结束 updatetime
+	@ApiModelProperty(hidden=true)
 	protected java.util.Date  endupdatetime;	
 	// updateby
+	@ApiModelProperty(hidden=true)
 	protected Long  updateby;
 	// updateuser
+	@ApiModelProperty(hidden=true)
 	protected String  updateuser;
+	
 	public void setUserid(Long userid) 
 	{
 		this.userid = userid;
@@ -432,12 +457,17 @@ public class SysUser extends BaseModel implements UserDetails
 	}
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return 0==isexpired;
+		if(isexpired==null) {
+			return true;
+		}
+		return isexpired==0;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
-		return 0==islock;
+		if(islock==null) {
+			return true;
+		}
+		return islock==0;
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {

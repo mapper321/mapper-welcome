@@ -44,4 +44,13 @@ mybatis:
 #logging:
 #  level:
 #    root: debug
-#  file: welcome.log 
+#  file: welcome.log
+swagger:
+  basepackage: com.mapper.sys.api
+  name: welcome-Api
+  description: api说明文档
+  contact:
+    developer: mapper
+    url: 
+    email: 547008022@qq.com
+  

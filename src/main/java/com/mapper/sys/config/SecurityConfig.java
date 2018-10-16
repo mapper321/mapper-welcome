@@ -1,4 +1,4 @@
-package com.mapper.sys.security;
+package com.mapper.sys.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
