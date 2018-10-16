@@ -41,11 +41,19 @@ spring:
 mybatis:
   mapper-locations: classpath*:com/mapper/*/*/data/*.map.xml 
   typeAliasesPackage: com.mapper.*.*.data
-#logging:
+security:
+  basic:
+    enabled: false
+logging:
 #  level:
 #    root: debug
-#  file: welcome.log
-swagger:
+  file: welcome.log
+springfox: 
+  documentation: 
+    swagger: 
+      v2: 
+        host: daily.mapper321.cn
+swagger: 
   basepackage: com.mapper.sys.api
   name: welcome-Api
   description: api说明文档
