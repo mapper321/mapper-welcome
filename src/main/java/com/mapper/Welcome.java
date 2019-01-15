@@ -11,6 +11,9 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,18 +67,26 @@ public class Welcome {
 	public String loginpage() {
 		return "index";
 	}
-	
+
 	@Autowired
 	WelcomeFeign wf;
+
 	@RequestMapping("/testFeign")
 	@ResponseBody()
 	public GenericResultView<SysUser> testFeign() {
 		SysUser sysUser = wf.getlist().getRows().get(0);
 		return wf.getlist();
 	}
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Welcome.class, args);
 	}
+
+	@MessageMapping("/hello")
+    @SendTo("/topic/greetings")
+    public ResultView greeting(SysUser user) throws Exception {
+        Thread.sleep(1000); // simulated delay
+        return ResultView.ok(user.getFullname()+"hello");
+    }
 
 }
