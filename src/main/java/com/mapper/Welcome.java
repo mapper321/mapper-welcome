@@ -2,6 +2,8 @@ package com.mapper;
 
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,8 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -39,6 +43,9 @@ public class Welcome {
 
 	@Autowired
 	private JmsTemplate jmsTemplate;
+	
+	@Autowired
+	private JavaMailSender	mailSender;
 
 	@RequestMapping("/getserverurl")
 	@ResponseBody()
@@ -88,5 +95,18 @@ public class Welcome {
         Thread.sleep(1000); // simulated delay
         return ResultView.ok(user.getFullname()+"hello");
     }
-
+	
+	@RequestMapping("/sendMail")
+	@ResponseBody()
+	public ResultView sendMail() {
+		System.out.println(mailSender);
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom("mapper321@163.com");
+		msg.setTo("547008022@qq.com");
+		msg.setText("hello mapper");
+		mailSender.send(msg);
+//		MimeMessage arg0 = new MimeMessage();
+//		mailSender.send(arg0);
+		return ResultView.ok();
+	}
 }
