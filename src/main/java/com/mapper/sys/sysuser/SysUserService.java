@@ -34,7 +34,7 @@ public class SysUserService extends BaseService<SysUser> implements UserDetailsS
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Map m = new HashMap<>();
+		Map m = new HashMap<String,String>();
 		m.put("account", username);
 		SysUser user = dao.getOne("getAll", m);
 		if(user != null) {

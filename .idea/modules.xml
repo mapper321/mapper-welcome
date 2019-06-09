@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../mapper-common/common.iml" filepath="$PROJECT_DIR$/../mapper-common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mapper-welcome.iml" filepath="$PROJECT_DIR$/mapper-welcome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mapper-parent/parent.iml" filepath="$PROJECT_DIR$/../mapper-parent/parent.iml" />
+    </modules>
+  </component>
+</project>

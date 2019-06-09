@@ -47,6 +47,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 #    default-property-inclusion: non-null
+  redis:
+    host: 140.143.35.107
+    port: 6379
+    password: mapper321
 mybatis:
   mapper-locations: classpath*:com/mapper/*/*/data/*.map.xml 
   typeAliasesPackage: com.mapper.*.*.data
