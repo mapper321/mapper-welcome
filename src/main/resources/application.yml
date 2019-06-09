@@ -24,6 +24,12 @@ spring:
       connect-string: 140.143.35.107:2181
 #      discovery:
 #        instance-host: 172.21.0.100 使用vpn的情况下，虽然可以显示的设置本机地址，然并卵，服务器也访问不到该地址
+  mail: 
+    host: smtp.163.com
+    port: 25
+    username: mapper321
+    password: mapper321
+    
   datasource:
     name: test
     url: jdbc:mysql://cdb-o742k9kc.bj.tencentcdb.com:10035/daily?useUnicode=true&characterEncoding=utf-8&useSSL=false
