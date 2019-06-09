@@ -1,9 +1,9 @@
 package com.mapper;
 
-import java.util.List;
-
-import javax.mail.internet.MimeMessage;
-
+import com.mapper.core.model.GenericResultView;
+import com.mapper.core.model.ResultView;
+import com.mapper.feign.WelcomeFeign;
+import com.mapper.sys.sysuser.data.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -17,16 +17,12 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mapper.core.model.GenericResultView;
-import com.mapper.core.model.ResultView;
-import com.mapper.feign.WelcomeFeign;
-import com.mapper.sys.sysuser.data.SysUser;
+import java.util.List;
 
 @SpringBootApplication
 @EnableDiscoveryClient
