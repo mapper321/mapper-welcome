@@ -1,5 +1,6 @@
 package com.mapper.sys.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +43,7 @@ public class SwaggerConfiguration {
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage(this.basePackage))
+				.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
 				.paths(PathSelectors.any()).build();
 	}
 

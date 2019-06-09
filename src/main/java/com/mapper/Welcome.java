@@ -2,6 +2,7 @@ package com.mapper;
 
 import com.mapper.core.model.GenericResultView;
 import com.mapper.core.model.ResultView;
+import com.mapper.core.util.RedisUtil;
 import com.mapper.feign.WelcomeFeign;
 import com.mapper.sys.sysuser.data.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,5 +105,13 @@ public class Welcome {
 //		MimeMessage arg0 = new MimeMessage();
 //		mailSender.send(arg0);
 		return ResultView.ok();
+	}
+
+	@RequestMapping("/redis")
+	@ResponseBody()
+	public String redis(String value) {
+		RedisUtil.add("app:key", value);
+		System.out.println("RedisUtil.get(\"b\") = " + RedisUtil.get("b"));
+		return RedisUtil.get("app:key").toString();
 	}
 }
